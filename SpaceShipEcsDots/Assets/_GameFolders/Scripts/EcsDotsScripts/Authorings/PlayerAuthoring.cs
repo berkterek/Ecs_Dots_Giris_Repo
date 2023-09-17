@@ -1,6 +1,6 @@
 using SpaceShipEcsDots.Components;
 using Unity.Entities;
-using UnityEditor.SceneManagement;
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace SpaceShipEcsDots.Authorings
@@ -8,6 +8,9 @@ namespace SpaceShipEcsDots.Authorings
     public class PlayerAuthoring : MonoBehaviour
     {
         public float MoveSpeed = 5f;
+        public float Horizontal = 2f;
+        public float Vertical1;
+        public float Vertical2;
     }
     
     public class PlayerBaker : Baker<PlayerAuthoring>
@@ -19,6 +22,13 @@ namespace SpaceShipEcsDots.Authorings
             AddComponent(entity, new MoveData()
             {
                 MoveSpeed = authoring.MoveSpeed
+            });
+
+            AddComponent(entity, new MoveBorderData()
+            {
+                Horizontal = authoring.Horizontal,
+                Vertical1 = authoring.Vertical1,
+                Vertical2 = authoring.Vertical2
             });
 
             AddComponent<InputData>(entity);

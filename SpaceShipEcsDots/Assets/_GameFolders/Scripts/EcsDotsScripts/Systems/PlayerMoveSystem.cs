@@ -28,10 +28,14 @@ namespace SpaceShipEcsDots.Systems
         public float DeltaTime;
         
         [BurstCompile]
-        private void Execute(Entity entity, ref LocalTransform localTransform, in MoveData moveData, in InputData input)
+        private void Execute(Entity entity, ref LocalTransform localTransform, in MoveData moveData, in InputData input, in MoveBorderData moveBorderData)
         {
             float3 direction = input.Direction;
-            localTransform.Position += DeltaTime * moveData.MoveSpeed * direction;
+            float3 movePosition = (DeltaTime * moveData.MoveSpeed * direction) + localTransform.Position;
+            movePosition.x = math.clamp(movePosition.x, -moveBorderData.Horizontal, moveBorderData.Horizontal);
+            movePosition.y = math.clamp(movePosition.y, moveBorderData.Vertical2,moveBorderData.Vertical1);
+
+            localTransform.Position = movePosition;
         }
     }
 }
