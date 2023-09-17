@@ -12,19 +12,26 @@ namespace SpaceShipEcsDots.Systems
     public partial struct PlayerMoveSystem : ISystem
     {
         [BurstCompile]
-        public void OnCreate(ref SystemState state)
-        {
-        }
-
-        [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
             float deltaTime = SystemAPI.Time.DeltaTime;
-            foreach (var (localTransformRW, moveDataRO) in SystemAPI.Query<RefRW<LocalTransform>, RefRO<MoveData>>())
+            new PlayerMoveJob()
             {
-                var direction = new float3(0f, 1f, 0f);
-                localTransformRW.ValueRW.Position += deltaTime * moveDataRO.ValueRO.MoveSpeed * direction;
-            }
+                DeltaTime = deltaTime
+            }.ScheduleParallel();
+        }
+    }
+
+    [BurstCompile]
+    public partial struct PlayerMoveJob : IJobEntity
+    {
+        public float DeltaTime;
+        
+        [BurstCompile]
+        private void Execute(Entity entity, ref LocalTransform localTransform, in MoveData moveData)
+        {
+            var direction = new float3(0f, 1f, 0f);
+            localTransform.Position += DeltaTime * moveData.MoveSpeed * direction;
         }
     }
 }
