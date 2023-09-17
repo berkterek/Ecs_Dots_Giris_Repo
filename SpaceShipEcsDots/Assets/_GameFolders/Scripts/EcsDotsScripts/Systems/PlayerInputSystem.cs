@@ -13,6 +13,7 @@ namespace SpaceShipEcsDots.Systems
         
         protected override void OnCreate()
         {
+            RequireForUpdate<PlayerTag>();
             _input = new GameInputActions();
         }
 
