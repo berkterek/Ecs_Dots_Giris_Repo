@@ -1,5 +1,6 @@
 using SpaceShipEcsDots.Components;
 using Unity.Entities;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace SpaceShipEcsDots.Authorings
@@ -19,6 +20,9 @@ namespace SpaceShipEcsDots.Authorings
             {
                 MoveSpeed = authoring.MoveSpeed
             });
+
+            AddComponent<InputData>(entity);
+            AddComponent<PlayerTag>(entity);
         }
     }
 }
