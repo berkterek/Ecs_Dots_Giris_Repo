@@ -2,15 +2,21 @@ using SpaceShipEcsDots.Components;
 using Unity.Entities;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace SpaceShipEcsDots.Authorings
 {
     public class PlayerAuthoring : MonoBehaviour
     {
+        [Header("Movements")]
         public float MoveSpeed = 5f;
         public float Horizontal = 2f;
         public float Vertical1;
         public float Vertical2;
+        
+        [Header("Attacks")]
+        public GameObject ProjectilePrefab;
+        public float MaxFireTime = 1f;
     }
     
     public class PlayerBaker : Baker<PlayerAuthoring>
@@ -29,6 +35,13 @@ namespace SpaceShipEcsDots.Authorings
                 Horizontal = authoring.Horizontal,
                 Vertical1 = authoring.Vertical1,
                 Vertical2 = authoring.Vertical2
+            });
+            
+            AddComponent(entity, new AttackData()
+            {
+                Projectile = GetEntity(authoring.ProjectilePrefab, TransformUsageFlags.Dynamic),
+                CurrentFireTime = 0f,
+                MaxFireTime = authoring.MaxFireTime
             });
 
             AddComponent<InputData>(entity);
