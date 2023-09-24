@@ -87,3 +87,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 10
   Direction: 1
+  MaxLifeTime: 2

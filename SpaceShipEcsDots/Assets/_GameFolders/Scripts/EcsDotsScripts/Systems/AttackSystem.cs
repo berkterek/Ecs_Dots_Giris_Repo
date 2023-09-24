@@ -1,6 +1,8 @@
 ﻿using SpaceShipEcsDots.Components;
 using Unity.Burst;
 using Unity.Entities;
+using Unity.Mathematics;
+using Unity.Transforms;
 
 namespace SpaceShipEcsDots.Systems
 {
@@ -34,13 +36,19 @@ namespace SpaceShipEcsDots.Systems
         public EntityCommandBuffer.ParallelWriter MyEntityCommandBuffer;
 
         [BurstCompile]
-        private void Execute(Entity entity, ref AttackData attackData, [ChunkIndexInQuery]int sortKey)
+        private void Execute(Entity entity, ref AttackData attackData, in LocalTransform localTransform,[ChunkIndexInQuery]int sortKey)
         {
             attackData.CurrentFireTime += DeltaTime;
             if (attackData.CurrentFireTime > attackData.MaxFireTime)
             {
                 attackData.CurrentFireTime = 0f;
                 var projectileEntity = MyEntityCommandBuffer.Instantiate(sortKey, attackData.Projectile);
+                MyEntityCommandBuffer.SetComponent(sortKey, projectileEntity, new LocalTransform()
+                {
+                    Position = localTransform.Position,
+                    Rotation = quaternion.identity,
+                    Scale = 1f
+                });
             }
         }
     }
