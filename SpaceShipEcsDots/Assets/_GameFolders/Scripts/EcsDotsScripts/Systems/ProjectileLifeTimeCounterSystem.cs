@@ -5,18 +5,16 @@ using Unity.Transforms;
 
 namespace SpaceShipEcsDots.Systems
 {
+    [BurstCompile]
     [UpdateInGroup(typeof(SimulationSystemGroup))]
     [UpdateBefore(typeof(TransformSystemGroup))]
-    [UpdateAfter(typeof(PlayerMoveSystem))]
-    [BurstCompile]
-    public partial struct ProjectileMovementSystem : ISystem
+    public partial struct ProjectileLifeTimeCounterSystem : ISystem
     {
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
             float deltaTime = SystemAPI.Time.DeltaTime;
-
-            new ProjectileMovementJob()
+            new ProjectileLifeTimeCounterJob()
             {
                 DeltaTime = deltaTime
             }.ScheduleParallel();
@@ -24,14 +22,14 @@ namespace SpaceShipEcsDots.Systems
     }
 
     [BurstCompile]
-    public partial struct ProjectileMovementJob : IJobEntity
+    public partial struct ProjectileLifeTimeCounterJob : IJobEntity
     {
         public float DeltaTime;
-
+        
         [BurstCompile]
-        private void Execute(ProjectileMovementAspect projectileMovementAspect)
+        private void Execute(ProjectileSelfDestroyAspect projectileSelfDestroyAspect)
         {
-           projectileMovementAspect.MoveProcess(DeltaTime);
+            projectileSelfDestroyAspect.BackCountingProcess(DeltaTime);
         }
     }
 }
