@@ -1,7 +1,6 @@
-﻿using SpaceShipEcsDots.Components;
+﻿using SpaceShipEcsDots.Aspects;
 using Unity.Burst;
 using Unity.Entities;
-using Unity.Mathematics;
 using Unity.Transforms;
 
 namespace SpaceShipEcsDots.Systems
@@ -27,10 +26,9 @@ namespace SpaceShipEcsDots.Systems
     {
         public float DeltaTime;
 
-        private void Execute(Entity entity, ref LocalTransform localTransform, in ProjectileMoveData projectileMoveData)
+        private void Execute(ProjectileMovementAspect projectileMovementAspect)
         {
-            float3 direction = new float3(0f, projectileMoveData.Direction, 0f);
-            localTransform.Position += DeltaTime * projectileMoveData.MoveSpeed * direction;
+           projectileMovementAspect.MoveProcess(DeltaTime);
         }
     }
 }
