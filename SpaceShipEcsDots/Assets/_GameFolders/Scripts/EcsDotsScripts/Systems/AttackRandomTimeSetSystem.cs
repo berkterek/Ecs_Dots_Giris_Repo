@@ -17,7 +17,7 @@ namespace SpaceShipEcsDots.Systems
             
             new AttackRandomTimeSetJob()
             {
-                
+                ElapsedTime = (float)elapsedTime
             }.ScheduleParallel();
         }
     }
@@ -28,12 +28,12 @@ namespace SpaceShipEcsDots.Systems
         public float ElapsedTime;
 
         [BurstCompile]
-        private void Execute(Entity entity, ref AttackData attackData, in AttackRandomTimeData attackRandomTimeData, [ChunkIndexInQuery]int sortKey)
+        private void Execute(Entity entity, ref AttackData attackData, in AttackRandomTimeData attackRandomTimeData)
         {
             if (attackData.CanChange)
             {
                 attackData.CanChange = false;
-                uint seedNumber = (uint)math.abs(ElapsedTime);
+                uint seedNumber = (uint)math.abs(ElapsedTime + entity.Index);
                 attackData.MaxFireTime = Random.CreateFromIndex(seedNumber).NextFloat(attackRandomTimeData.MinFireRandomTime,
                     attackRandomTimeData.MaxFireRandomTime);
             }
