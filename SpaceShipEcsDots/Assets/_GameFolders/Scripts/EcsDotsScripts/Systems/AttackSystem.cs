@@ -44,6 +44,7 @@ namespace SpaceShipEcsDots.Systems
             if (attackData.CurrentFireTime > attackData.MaxFireTime)
             {
                 attackData.CurrentFireTime = 0f;
+                attackData.CanChange = true;
                 var projectileEntity = MyEntityCommandBuffer.Instantiate(sortKey, attackData.Projectile);
                 MyEntityCommandBuffer.SetComponent(sortKey, projectileEntity, new LocalTransform()
                 {

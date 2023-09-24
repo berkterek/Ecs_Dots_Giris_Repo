@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caca682bb0bc9b3418acfad838bcd9be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ProjectilePrefab: {fileID: 724378015524324305, guid: 5a7a06d78bfbf1f40a167abfd0fd3755, type: 3}
+  MoveSpeed: 3
 --- !u!1 &1906638635159855856
 GameObject:
   m_ObjectHideFlags: 0
