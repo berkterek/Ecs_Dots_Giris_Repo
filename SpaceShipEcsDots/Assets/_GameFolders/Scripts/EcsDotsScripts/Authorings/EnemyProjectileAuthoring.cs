@@ -8,6 +8,7 @@ namespace SpaceShipEcsDots.Authorings
     {
         public float MoveSpeed;
         public float Direction;
+        public float MaxLifeTime = 10f;
     }
     
     public class EnemyProjectileBaker : Baker<EnemyProjectileAuthoring>
@@ -22,6 +23,13 @@ namespace SpaceShipEcsDots.Authorings
             {
                 MoveSpeed = authoring.MoveSpeed,
                 Direction = authoring.Direction
+            });
+            
+            AddComponent(entity, new ProjectileSelfDestroyData()
+            {
+                MaxLifeTime = authoring.MaxLifeTime,
+                CanDestroy = false,
+                CurrentLifeTime = 0f
             });
         }
     }
