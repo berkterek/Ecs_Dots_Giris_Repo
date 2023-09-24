@@ -7,6 +7,8 @@ using Unity.Transforms;
 namespace SpaceShipEcsDots.Systems
 {
     [BurstCompile]
+    [UpdateInGroup(typeof(SimulationSystemGroup))]
+    [UpdateBefore(typeof(TransformSystemGroup))]
     public partial struct AttackSystem : ISystem
     {
         [BurstCompile]
