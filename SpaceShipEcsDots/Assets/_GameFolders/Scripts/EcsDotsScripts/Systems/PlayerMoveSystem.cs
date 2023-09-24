@@ -28,7 +28,7 @@ namespace SpaceShipEcsDots.Systems
         public float DeltaTime;
         
         [BurstCompile]
-        private void Execute(Entity entity, ref LocalTransform localTransform, in MoveData moveData, in InputData input, in MoveBorderData moveBorderData)
+        private void Execute(Entity entity, ref LocalTransform localTransform, in PlayerMoveData moveData, in InputData input, in MoveBorderData moveBorderData)
         {
             float3 direction = input.Direction;
             float3 movePosition = (DeltaTime * moveData.MoveSpeed * direction) + localTransform.Position;

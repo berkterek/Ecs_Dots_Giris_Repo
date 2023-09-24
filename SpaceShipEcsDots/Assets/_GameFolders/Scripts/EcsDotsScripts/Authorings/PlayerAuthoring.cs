@@ -25,7 +25,7 @@ namespace SpaceShipEcsDots.Authorings
         {
             var entity = GetEntity(TransformUsageFlags.Dynamic);
 
-            AddComponent(entity, new MoveData()
+            AddComponent(entity, new PlayerMoveData()
             {
                 MoveSpeed = authoring.MoveSpeed
             });
