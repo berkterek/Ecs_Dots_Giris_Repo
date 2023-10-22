@@ -32,7 +32,11 @@ namespace SpaceShipEcsDots.Systems
         private void Execute(Entity entity, ref LocalTransform localTransform, ref EnemyMoveData enemyMoveData,
             in EnemyMoveTargetData enemyMoveTargetData)
         {
-            if (math.distance(enemyMoveTargetData.Target, localTransform.Position) < 0.1f) return;
+            if (math.distance(enemyMoveTargetData.Target, localTransform.Position) < 0.1f)
+            {
+                enemyMoveData.CanPassNextTarget = true;
+                return;
+            }
 
             var direction = math.normalize(enemyMoveTargetData.Target - localTransform.Position);
 
