@@ -20,7 +20,7 @@ namespace SpaceShipEcsDots.Authorings
             
             AddComponent<EnemyMoveTargetData>(entity);
             AddComponent<EnemyTag>(entity);
-            
+
             AddComponent(entity, new AttackData()
             {
                 MaxFireTime = Random.Range(authoring.MinFireRandomTime,authoring.MaxFireRandomTime),

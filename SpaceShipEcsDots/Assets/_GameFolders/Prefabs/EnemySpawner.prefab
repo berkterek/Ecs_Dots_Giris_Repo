@@ -44,3 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 947503892e0bdaf4a8bc5a1ad1fdb320, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Prefab: {fileID: 479419319765975483, guid: ca3f3911e9a84ce4db35809c561be52a, type: 3}
+  MinTime: 1
+  MaxTime: 5

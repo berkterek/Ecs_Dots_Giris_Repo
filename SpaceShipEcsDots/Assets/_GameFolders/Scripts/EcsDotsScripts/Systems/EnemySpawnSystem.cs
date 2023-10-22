@@ -3,6 +3,7 @@ using Unity.Burst;
 using Unity.Entities;
 using Unity.Mathematics;
 using Unity.Scenes;
+using Unity.Transforms;
 
 namespace SpaceShipEcsDots.Systems
 {
@@ -40,7 +41,8 @@ namespace SpaceShipEcsDots.Systems
         public float ElapsedTime;
         public EntityCommandBuffer.ParallelWriter MyEntityCommandBuffer;
 
-        private void Execute(Entity entity, ref EnemySpawnData enemySpawnData, [ChunkIndexInQuery] int sortKey)
+        [BurstCompile]
+        private void Execute(Entity entity, ref EnemySpawnData enemySpawnData, in EnemySpawnPositionsReference enemySpawnPositionRef ,[ChunkIndexInQuery] int sortKey)
         {
             enemySpawnData.CurrentTime += DeltaTime;
 
@@ -52,6 +54,20 @@ namespace SpaceShipEcsDots.Systems
                     .NextFloat(enemySpawnData.MinTime, enemySpawnData.MaxTime);
 
                 var newEntity = MyEntityCommandBuffer.Instantiate(sortKey, enemySpawnData.Entity);
+                
+                MyEntityCommandBuffer.SetComponent(sortKey, newEntity, new LocalTransform()
+                {
+                    Position = enemySpawnPositionRef.BlobValueReference.Value.Values[0],
+                    Rotation = quaternion.identity,
+                    Scale = 1f
+                });
+                
+                MyEntityCommandBuffer.SetComponent(sortKey, newEntity, new EnemyMoveTargetData()
+                {
+                    Target = enemySpawnPositionRef.BlobValueReference.Value.Values[1],
+                    NextTargetIndex = 1,
+                    MaxTargetIndex = enemySpawnPositionRef.BlobValueReference.Value.Values.Length
+                });
             }
         }
     }
