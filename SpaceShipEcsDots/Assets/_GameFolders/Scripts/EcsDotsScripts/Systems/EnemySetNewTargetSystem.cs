@@ -22,15 +22,15 @@ namespace SpaceShipEcsDots.Systems
     public partial struct EnemySetNewTargetJob : IJobEntity
     {
         [BurstCompile]
-        private void Execute(Entity entity, ref EnemyMoveData enemyMoveData, ref EnemyMoveTargetData enemyMoveTargetData, in EnemyPathData enemyPathData)
+        private void Execute(Entity entity, ref EnemyMoveData enemyMoveData, ref EnemyMoveTargetData enemyMoveTargetData, in EnemyPathData enemyPathData,ref DestroyData destroyData)
         {
-            if (!enemyMoveData.CanPassNextTarget) return;
+            if (!enemyMoveData.CanPassNextTarget || destroyData.IsDestroy) return;
             
             enemyMoveTargetData.NextTargetIndex++;
             
             if (enemyMoveTargetData.NextTargetIndex >= enemyMoveTargetData.MaxTargetIndex)
             {
-                //Destroy
+                destroyData.IsDestroy = true;
             }
             else
             {
