@@ -20,6 +20,7 @@ namespace SpaceShipEcsDots.Authorings
             
             AddComponent<EnemyMoveTargetData>(entity);
             AddComponent<EnemyTag>(entity);
+            AddComponent<EnemyPathData>(entity);
 
             AddComponent(entity, new AttackData()
             {

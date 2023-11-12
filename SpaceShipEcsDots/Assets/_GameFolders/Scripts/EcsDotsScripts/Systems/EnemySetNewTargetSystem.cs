@@ -11,26 +11,31 @@ namespace SpaceShipEcsDots.Systems
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
-            foreach (var (spawnDataRO, spawnPositionDataRO) in SystemAPI.Query<RefRO<EnemySpawnData>, RefRO<EnemySpawnPositionsReference>>())
+            new EnemySetNewTargetJob()
             {
-                foreach (var (enemyMoveDataRW, enemyMoveTargetDataRW) in SystemAPI.Query<RefRW<EnemyMoveData>, RefRW<EnemyMoveTargetData>>())
-                {
-                    if(!enemyMoveDataRW.ValueRO.CanPassNextTarget) continue;
 
-                    enemyMoveDataRW.ValueRW.CanPassNextTarget = false;
-                    enemyMoveTargetDataRW.ValueRW.NextTargetIndex++;
+            }.ScheduleParallel();
+        }
+    }
 
-                    if (enemyMoveTargetDataRW.ValueRO.NextTargetIndex >= enemyMoveTargetDataRW.ValueRO.MaxTargetIndex)
-                    {
-                        //Destroy
-                    }
-                    else
-                    {
-                        enemyMoveTargetDataRW.ValueRW.Target =
-                            spawnPositionDataRO.ValueRO.BlobValueReference.Value.Values[
-                                enemyMoveTargetDataRW.ValueRW.NextTargetIndex];
-                    }
-                }
+    [BurstCompile]
+    public partial struct EnemySetNewTargetJob : IJobEntity
+    {
+        [BurstCompile]
+        private void Execute(Entity entity, ref EnemyMoveData enemyMoveData, ref EnemyMoveTargetData enemyMoveTargetData, in EnemyPathData enemyPathData)
+        {
+            if (!enemyMoveData.CanPassNextTarget) return;
+            
+            enemyMoveTargetData.NextTargetIndex++;
+            
+            if (enemyMoveTargetData.NextTargetIndex >= enemyMoveTargetData.MaxTargetIndex)
+            {
+                //Destroy
+            }
+            else
+            {
+                enemyMoveTargetData.Target = enemyPathData.BlobValueReference.Value.Values[enemyMoveTargetData.NextTargetIndex];
+                enemyMoveData.CanPassNextTarget = false;
             }
         }
     }

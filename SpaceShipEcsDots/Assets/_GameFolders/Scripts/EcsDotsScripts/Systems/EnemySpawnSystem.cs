@@ -55,6 +55,11 @@ namespace SpaceShipEcsDots.Systems
 
                 var newEntity = MyEntityCommandBuffer.Instantiate(sortKey, enemySpawnData.Entity);
                 
+                MyEntityCommandBuffer.SetComponent(sortKey, newEntity, new EnemyPathData()
+                {
+                    BlobValueReference = enemySpawnPositionRef.BlobValueReference
+                });
+                
                 MyEntityCommandBuffer.SetComponent(sortKey, newEntity, new LocalTransform()
                 {
                     Position = enemySpawnPositionRef.BlobValueReference.Value.Values[0],
