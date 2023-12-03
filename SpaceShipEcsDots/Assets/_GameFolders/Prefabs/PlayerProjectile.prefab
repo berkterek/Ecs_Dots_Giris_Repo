@@ -348,3 +348,4 @@ MonoBehaviour:
   MoveSpeed: 10
   Direction: 1
   MaxLifeTime: 2
+  MaxDamage: 10

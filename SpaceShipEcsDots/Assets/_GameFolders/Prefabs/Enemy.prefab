@@ -51,6 +51,7 @@ MonoBehaviour:
   MoveSpeed: 3
   MaxFireRandomTime: 1.5
   MinFireRandomTime: 0.3
+  MaxHealth: 100
 --- !u!114 &4212955702078825509
 MonoBehaviour:
   m_ObjectHideFlags: 0

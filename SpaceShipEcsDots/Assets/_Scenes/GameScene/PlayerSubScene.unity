@@ -135,14 +135,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 2354163276609541263, guid: 1a703841059e0584f99b346bcaccc5d4, type: 3}
-      propertyPath: MaxFireTime
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2354163276609541263, guid: 1a703841059e0584f99b346bcaccc5d4, type: 3}
-      propertyPath: ProjectilePrefab
-      value: 
-      objectReference: {fileID: 546596228132148427, guid: 7f1f7398616e3b64ba1320dc6330e37b, type: 3}
     - target: {fileID: 7614348912659328140, guid: 1a703841059e0584f99b346bcaccc5d4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
