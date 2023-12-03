@@ -20,10 +20,12 @@ namespace SpaceShipEcsDots.Authorings
             var entity = GetEntity(TransformUsageFlags.Dynamic);
             
             AddComponent<EnemyProjectileTag>(entity);
-            
-            AddComponent(entity, new DamageData()
+            AddComponent<DamageData>(entity);
+
+            AddComponent(entity, new DamageRandomData()
             {
-                Damage = Random.Range(authoring.MinDamage, authoring.MaxDamage)
+                MinDamage = authoring.MinDamage,
+                MaxDamage = authoring.MaxDamage
             });
             
             AddComponent(entity, new ProjectileMoveData()
