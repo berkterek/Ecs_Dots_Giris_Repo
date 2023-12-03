@@ -10,6 +10,7 @@ namespace SpaceShipEcsDots.Authorings
         public float MoveSpeed = 3f;
         public float MaxFireRandomTime = 4f;
         public float MinFireRandomTime = 1f;
+        public int MaxHealth = 100;
     }
 
     public class EnemyBaker : Baker<EnemyAuthoring>
@@ -22,6 +23,12 @@ namespace SpaceShipEcsDots.Authorings
             AddComponent<EnemyTag>(entity);
             AddComponent<EnemyPathData>(entity);
             AddComponent<DestroyData>(entity);
+
+            AddComponent(entity, new HealthData()
+            {
+                CurrentHealth = authoring.MaxHealth,
+                MaxHealth = authoring.MaxHealth
+            });
 
             AddComponent(entity, new AttackData()
             {

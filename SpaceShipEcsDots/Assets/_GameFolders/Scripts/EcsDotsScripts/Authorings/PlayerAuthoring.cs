@@ -1,8 +1,6 @@
 using SpaceShipEcsDots.Components;
 using Unity.Entities;
-using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace SpaceShipEcsDots.Authorings
 {
@@ -17,6 +15,7 @@ namespace SpaceShipEcsDots.Authorings
         [Header("Attacks")]
         public GameObject ProjectilePrefab;
         public float MaxFireTime = 1f;
+        public int MaxHealth = 100;
     }
     
     public class PlayerBaker : Baker<PlayerAuthoring>
@@ -24,6 +23,12 @@ namespace SpaceShipEcsDots.Authorings
         public override void Bake(PlayerAuthoring authoring)
         {
             var entity = GetEntity(TransformUsageFlags.Dynamic);
+            
+            AddComponent(entity, new HealthData()
+            {
+                MaxHealth = authoring.MaxHealth,
+                CurrentHealth = authoring.MaxHealth
+            });
 
             AddComponent(entity, new PlayerMoveData()
             {

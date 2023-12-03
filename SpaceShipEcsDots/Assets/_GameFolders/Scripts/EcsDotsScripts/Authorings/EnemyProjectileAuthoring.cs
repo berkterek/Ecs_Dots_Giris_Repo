@@ -9,6 +9,8 @@ namespace SpaceShipEcsDots.Authorings
         public float MoveSpeed;
         public float Direction;
         public float MaxLifeTime = 10f;
+        public float MaxDamage = 10f;
+        public float MinDamage = 2f;
     }
     
     public class EnemyProjectileBaker : Baker<EnemyProjectileAuthoring>
@@ -18,6 +20,11 @@ namespace SpaceShipEcsDots.Authorings
             var entity = GetEntity(TransformUsageFlags.Dynamic);
             
             AddComponent<EnemyProjectileTag>(entity);
+            
+            AddComponent(entity, new DamageData()
+            {
+                Damage = Random.Range(authoring.MinDamage, authoring.MaxDamage)
+            });
             
             AddComponent(entity, new ProjectileMoveData()
             {
