@@ -52,7 +52,8 @@ MonoBehaviour:
   Vertical1: -1
   Vertical2: -4.5
   ProjectilePrefab: {fileID: 546596228132148427, guid: 7f1f7398616e3b64ba1320dc6330e37b, type: 3}
-  MaxFireTime: 0.1
+  MaxFireTime: 0.2
+  MaxHealth: 100
 --- !u!114 &-3708062458858957637
 MonoBehaviour:
   m_ObjectHideFlags: 0

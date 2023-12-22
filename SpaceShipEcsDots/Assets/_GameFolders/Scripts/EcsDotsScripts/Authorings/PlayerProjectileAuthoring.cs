@@ -19,6 +19,11 @@ namespace SpaceShipEcsDots.Authorings
             var entity = GetEntity(TransformUsageFlags.Dynamic);
             
             AddComponent<PlayerProjectileTag>(entity);
+            
+            AddComponent(entity, new LaserSoundData()
+            {
+                IsPlayer = true
+            });
 
             AddComponent(entity, new DamageData()
             {

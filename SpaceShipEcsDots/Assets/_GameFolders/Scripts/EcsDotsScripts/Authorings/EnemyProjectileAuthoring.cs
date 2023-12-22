@@ -21,6 +21,11 @@ namespace SpaceShipEcsDots.Authorings
             
             AddComponent<EnemyProjectileTag>(entity);
             AddComponent<DamageData>(entity);
+            
+            AddComponent(entity, new LaserSoundData()
+            {
+                IsPlayer = false
+            });
 
             AddComponent(entity, new DamageRandomData()
             {
